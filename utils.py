@@ -1,6 +1,7 @@
 import time, torch
 from argparse import ArgumentTypeError
 from prefetch_generator import BackgroundGenerator
+import wandb
 
 
 class WeightedSubset(torch.utils.data.Subset):
@@ -59,12 +60,16 @@ def train(train_loader, network, criterion, optimizer, scheduler, epoch, args, r
         end = time.time()
 
         if i % args.print_freq == 0:
+            # losses -> loss, then loss.val
             print('Epoch: [{0}][{1}/{2}]\t'
                   'Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t'
                   'Loss {loss.val:.4f} ({loss.avg:.4f})\t'
                   'Prec@1 {top1.val:.3f} ({top1.avg:.3f})'.format(
                 epoch, i, len(train_loader), batch_time=batch_time,
                 loss=losses, top1=top1))
+        
+        wandb.log({'epoch': epoch, 'train_loss': losses.avg, 'val_loss': losses.val,"train_acc": top1.avg, "val_acc": top1.val, "lr": optimizer.param_groups[0]["lr"],
+        "batch_train_time": batch_time.avg, "batch_val_time": batch_time.val})
 
     record_train_stats(rec, epoch, losses.avg, top1.avg, optimizer.state_dict()['param_groups'][0]['lr'])
 

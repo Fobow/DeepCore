@@ -6,7 +6,7 @@ from copy import deepcopy
 from .. import nets
 from torchvision import transforms
 
-
+# core code for data diet, forgetting etc.
 class EarlyTrain(CoresetMethod):
     '''
     Core code for training related to coreset selection methods when pre-training is required.

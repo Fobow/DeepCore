@@ -1,0 +1,21 @@
+================== Exp 0 ==================
+dataset: CIFAR10, model: ResNet18, selection: Uniform, num_ex: 1, epochs: 1, fraction: 0.1, seed: 36259, lr: 0.1, save_path: ./result, resume: , device: cuda, checkpoint_name: CIFAR10_ResNet18_Uniform_exp0_epoch1_2024-03-18 12:20:38.073188_0.1_
+Files already downloaded and verified
+Files already downloaded and verified
+=>number of samples:  5000
+Traceback (most recent call last):
+  File "/home/yancheng/code/DeepCore/main.py", line 340, in <module>
+    main()
+  File "/home/yancheng/code/DeepCore/main.py", line 218, in main
+    wandb.watch(model)
+  File "/home/yancheng/.local/lib/python3.10/site-packages/wandb/sdk/wandb_watch.py", line 71, in watch
+    raise ValueError(
+ValueError: Expected a pytorch model (torch.nn.Module). Received <class 'str'>
+Traceback (most recent call last):
+  File "/home/yancheng/code/DeepCore/main.py", line 340, in <module>
+    main()
+  File "/home/yancheng/code/DeepCore/main.py", line 218, in main
+    wandb.watch(model)
+  File "/home/yancheng/.local/lib/python3.10/site-packages/wandb/sdk/wandb_watch.py", line 71, in watch
+    raise ValueError(
+ValueError: Expected a pytorch model (torch.nn.Module). Received <class 'str'>

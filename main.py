@@ -8,6 +8,8 @@ from torchvision import transforms
 from utils import *
 from datetime import datetime
 from time import sleep
+import wandb
+import time
 
 
 def main():
@@ -23,6 +25,7 @@ def main():
     parser.add_argument('--data_path', type=str, default='data', help='dataset path')
     parser.add_argument('--gpu', default=None, nargs="+", type=int, help='GPU id to use')
     parser.add_argument('--print_freq', '-p', default=20, type=int, help='print frequency (default: 20)')
+    # selecting only 0.1 is too low
     parser.add_argument('--fraction', default=0.1, type=float, help='fraction of data to be selected (default: 0.1)')
     parser.add_argument('--seed', default=int(time.time() * 1000) % 100000, type=int, help="random seed")
     parser.add_argument('-j', '--workers', default=4, type=int, metavar='N',
@@ -49,6 +52,7 @@ def main():
                         help='mini-batch size (default: 256)')
     parser.add_argument("--train_batch", "-tb", default=None, type=int,
                      help="batch size for training, if not specified, it will equal to batch size in argument --batch")
+    # selection batch can be different from train batch
     parser.add_argument("--selection_batch", "-sb", default=None, type=int,
                      help="batch size for selection, if not specified, it will equal to batch size in argument --batch")
 
@@ -90,6 +94,12 @@ def main():
     args = parser.parse_args()
     args.device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
+    # use wandb
+    watermark = "{}_{}".format(args.selection, args.fraction, args.dataset, args.model, args.lr, args.epochs)
+    wandb.init(project="pruning-cifar10", name=watermark)
+    wandb.config.update(args)
+
+    # print("pruning method: {agrs.selection}, model: {agrs.model}, repeat: {args.num_exp}")
     if args.train_batch is None:
         args.train_batch = args.batch
     if args.selection_batch is None:
@@ -160,7 +170,7 @@ def main():
                                   )
             method = methods.__dict__[args.selection](dst_train, args, args.fraction, args.seed, **selection_args)
             subset = method.select()
-        print(len(subset["indices"]))
+        print("=>number of samples: ", len(subset["indices"]))
 
         # Augmentation
         if args.dataset == "CIFAR10" or args.dataset == "CIFAR100":
@@ -183,11 +193,13 @@ def main():
             dst_subset = torch.utils.data.Subset(dst_train, subset["indices"])
 
         # BackgroundGenerator for ImageNet to speed up dataloaders
+        # load imagenet
         if args.dataset == "ImageNet":
             train_loader = DataLoaderX(dst_subset, batch_size=args.train_batch, shuffle=True,
                                        num_workers=args.workers, pin_memory=True)
             test_loader = DataLoaderX(dst_test, batch_size=args.train_batch, shuffle=False,
                                       num_workers=args.workers, pin_memory=True)
+        # load cifar
         else:
             train_loader = torch.utils.data.DataLoader(dst_subset, batch_size=args.train_batch, shuffle=True,
                                                        num_workers=args.workers, pin_memory=True)
@@ -202,10 +214,13 @@ def main():
                     models.append(model)
 
         for model in models:
+            
             if len(models) > 1:
                 print("| Training on model %s" % model)
 
             network = nets.__dict__[model](channel, num_classes, im_size).to(args.device)
+            
+            wandb.watch(network)
 
             if args.device == "cpu":
                 print("Using CPU.")
@@ -263,7 +278,12 @@ def main():
 
             for epoch in range(start_epoch, args.epochs):
                 # train for one epoch
+                train_start_time = time.time()
                 train(train_loader, network, criterion, optimizer, scheduler, epoch, args, rec, if_weighted=if_weighted)
+                train_end_time = time.time()
+                train_time = train_end_time - train_start_time
+                wandb.log({"training_time": train_time})
+                print("training time: ", train_time)
 
                 # evaluate on validation set
                 if args.test_interval > 0 and (epoch + 1) % args.test_interval == 0:
@@ -313,6 +333,8 @@ def main():
             start_epoch = 0
             checkpoint = {}
             sleep(2)
+            
+            wandb.save("wandb_{}_{}.h5".format(args.selection, args.dataset))
 
 
 if __name__ == '__main__':
