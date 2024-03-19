@@ -4,7 +4,7 @@ class CoresetMethod(object):
             raise ValueError("Illegal Coreset Size.")
         self.dst_train = dst_train
         self.num_classes = len(dst_train.classes)
-        # when random split is used
+        # when using random split
         # self.num_classes = len(dst_train.dataset.classes)
         self.fraction = fraction
         self.random_seed = random_seed

@@ -10,7 +10,25 @@ from datetime import datetime
 from time import sleep
 import wandb
 import time
-from torch.utils.data import random_split
+from torch.utils.data import random_split, Subset
+
+class CustomSubset(Subset):
+    '''A custom subset class'''
+    def __init__(self, dataset, indices, transform=None):
+        super().__init__(dataset, indices)
+        # self.targets = dataset.targets
+        self.targets = [dataset.targets[idx] for idx in indices]
+        self.classes = dataset.classes
+        self.transform = transform
+        print("sub set targets: ", len(self.targets))
+        print("sub set classes: ", len(self.classes))
+
+    def __getitem__(self, idx): 
+        x, y = self.dataset[self.indices[idx]]
+        return x, y 
+
+    def __len__(self):
+        return len(self.indices)
 
 
 def main():
@@ -153,19 +171,22 @@ def main():
               ", lr: ", args.lr, ", save_path: ", args.save_path, ", resume: ", args.resume, ", device: ", args.device,
               ", checkpoint_name: " + checkpoint_name if args.save_path != "" else "", "\n", sep="")
 
-        channel, im_size, num_classes, class_names, mean, std, dst_train, dst_test = datasets.__dict__[args.dataset] \
+        channel, im_size, num_classes, class_names, mean, std, dst_train_full, dst_test = datasets.__dict__[args.dataset] \
             (args.data_path)
     
         args.channel, args.im_size, args.num_classes, args.class_names = channel, im_size, num_classes, class_names
 
         torch.random.manual_seed(args.seed)
 
-        val_size = int(0.2*len(dst_train))
-        train_size = len(dst_train) - val_size
-        dst_train, dst_val =  random_split(dst_train, [train_size, val_size])
+        val_size = int(0.2*len(dst_train_full))
+        train_size = len(dst_train_full) - val_size
+        dst_train, dst_val =  random_split(dst_train_full, [train_size, val_size])
         print("=> training samples: {}, validation samples: {}".format(len(dst_train), len(dst_val)))
-        dst_train = dst_train.dataset
-        dst_val = dst_val.dataset
+        dst_train = CustomSubset(dst_train_full, dst_train.indices)
+        dst_val = CustomSubset(dst_train_full, dst_val.indices)
+        # dst_train = dst_train.dataset
+        # dst_val = dst_val.dataset
+
 
         # find subset for training
         select_start = time.time()

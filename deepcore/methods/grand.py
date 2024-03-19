@@ -10,6 +10,7 @@ class GraNd(EarlyTrain):
         super().__init__(dst_train, args, fraction, random_seed, epochs, specific_model)
         self.epochs = epochs
         self.n_train = len(dst_train)
+        print("self n train = len dist train = ", self.n_train)
         self.coreset_size = round(self.n_train * fraction)
         self.specific_model = specific_model
         self.repeat = repeat
@@ -58,7 +59,7 @@ class GraNd(EarlyTrain):
         # Initialize a matrix to save norms of each sample on idependent runs
         self.norm_matrix = torch.zeros([self.n_train, self.repeat], requires_grad=False).to(self.args.device)
 
-        print("called grand, with {} ensemble and {} epochs".format(self.repeat, self.epochs))
+        print("called grand, with {} ensemble and {} epochs, {} all samples".format(self.repeat, self.epochs, len(self.dst_train)))
 
         for self.cur_repeat in range(self.repeat):
             self.run()
@@ -70,7 +71,15 @@ class GraNd(EarlyTrain):
         else:
             top_examples = np.array([], dtype=np.int64)
             for c in range(self.num_classes):
-                c_indx = self.train_indx[self.dst_train.targets == c]
+                # print(len(self.dst_train.targets))
+                # print(len(self.norm_mean))
+                # print(self.dst_train.targets)
+                # print(len(self.train_indx))
+                # len of targets is 50000, train_indx is 40000
+                c_indx = self.train_indx[torch.stack(self.dst_train.targets) == int(c)]
+                # print(c_indx)
+                # random split
+                # c_indx = self.train_indx[ (self.dst_train.dataset.targets[i] for i in self.dst_train.indices )== c]
                 budget = round(self.fraction * len(c_indx))
                 top_examples = np.append(top_examples, c_indx[np.argsort(self.norm_mean[c_indx])[::-1][:budget]])
 

@@ -47,7 +47,7 @@ class EarlyTrain(CoresetMethod):
             # datasets to 224*224.
             if args.im_size[0] != 224 or args.im_size[1] != 224:
                 self.dst_train = deepcopy(dst_train)
-                self.dst_train.transform = transforms.Compose([self.dst_train.transform, transforms.Resize(224)])
+                self.dst_train.transform = transforms.Compose([self.dst_train.dataset.transform, transforms.Resize(224)])
                 if self.if_dst_pretrain:
                     self.dst_pretrain_dict['dst_train'] = deepcopy(dst_pretrain_dict['dst_train'])
                     self.dst_pretrain_dict['dst_train'].transform = transforms.Compose(
