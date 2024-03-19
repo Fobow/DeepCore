@@ -64,7 +64,7 @@ class EarlyTrain(CoresetMethod):
         self.before_train()
         self.model.train()
 
-        print('\n=> Training Epoch #%d' % epoch)
+        print('\n=> Early Training Epoch #%d' % epoch)
         trainset_permutation_inds = np.random.permutation(list_of_train_idx)
         batch_sampler = torch.utils.data.BatchSampler(trainset_permutation_inds, batch_size=self.args.selection_batch,
                                                       drop_last=False)

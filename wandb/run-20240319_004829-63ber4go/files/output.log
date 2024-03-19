@@ -1,0 +1,25 @@
+================== Exp 0 ==================
+dataset: CIFAR10, model: ResNet18, selection: Uniform, num_ex: 1, epochs: 1, fraction: 0.2, seed: 8252, lr: 0.1, save_path: ./result, resume: , device: cuda, checkpoint_name: CIFAR10_ResNet18_Uniform_exp0_epoch1_2024-03-19 00:48:30.121766_0.2_
+Files already downloaded and verified
+Files already downloaded and verified
+=> training samples: 40000, validation samples: 10000
+Traceback (most recent call last):
+  File "/home/yancheng/code/DeepCore/main.py", line 365, in <module>
+    main()
+  File "/home/yancheng/code/DeepCore/main.py", line 180, in main
+    method = methods.__dict__[args.selection](dst_train, args, args.fraction, args.seed, **selection_args)
+  File "/home/yancheng/code/DeepCore/deepcore/methods/uniform.py", line 7, in __init__
+    super().__init__(dst_train, args, fraction, random_seed)
+  File "/home/yancheng/code/DeepCore/deepcore/methods/coresetmethod.py", line 6, in __init__
+    self.num_classes = len(dst_train.classes)
+AttributeError: 'Subset' object has no attribute 'classes'
+Traceback (most recent call last):
+  File "/home/yancheng/code/DeepCore/main.py", line 365, in <module>
+    main()
+  File "/home/yancheng/code/DeepCore/main.py", line 180, in main
+    method = methods.__dict__[args.selection](dst_train, args, args.fraction, args.seed, **selection_args)
+  File "/home/yancheng/code/DeepCore/deepcore/methods/uniform.py", line 7, in __init__
+    super().__init__(dst_train, args, fraction, random_seed)
+  File "/home/yancheng/code/DeepCore/deepcore/methods/coresetmethod.py", line 6, in __init__
+    self.num_classes = len(dst_train.classes)
+AttributeError: 'Subset' object has no attribute 'classes'

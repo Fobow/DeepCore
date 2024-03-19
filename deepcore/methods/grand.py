@@ -3,9 +3,9 @@ import torch, time
 import numpy as np
 from ..nets.nets_utils import MyDataParallel
 
-
+# repeat  = ensemble, original 10, set to 1
 class GraNd(EarlyTrain):
-    def __init__(self, dst_train, args, fraction=0.5, random_seed=None, epochs=200, repeat=10,
+    def __init__(self, dst_train, args, fraction=0.5, random_seed=None, epochs=200, repeat=1,
                  specific_model=None, balance=False, **kwargs):
         super().__init__(dst_train, args, fraction, random_seed, epochs, specific_model)
         self.epochs = epochs
@@ -57,6 +57,8 @@ class GraNd(EarlyTrain):
     def select(self, **kwargs):
         # Initialize a matrix to save norms of each sample on idependent runs
         self.norm_matrix = torch.zeros([self.n_train, self.repeat], requires_grad=False).to(self.args.device)
+
+        print("called grand, with {} ensemble and {} epochs".format(self.repeat, self.epochs))
 
         for self.cur_repeat in range(self.repeat):
             self.run()

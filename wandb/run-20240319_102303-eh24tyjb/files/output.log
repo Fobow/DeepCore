@@ -1,0 +1,31 @@
+================== Exp 0 ==================
+dataset: CIFAR10, model: ResNet18, selection: Uniform, num_ex: 1, epochs: 100, fraction: 0.4, seed: 82495, lr: 0.1, save_path: ./result, resume: , device: cuda, checkpoint_name: CIFAR10_ResNet18_Uniform_exp0_epoch100_2024-03-19 10:23:04.297400_0.4_
+Files already downloaded and verified
+Files already downloaded and verified
+=> training samples: 40000, validation samples: 10000
+=> selecting time:  0.02249622344970703
+=> number of seletcted samples:  20000
+=> Saving checkpoint for epoch 0, with Prec@1 0.000000.
+Epoch: [0][0/157]	Time 5.067 (5.067)	Loss 2.6049 (2.6049)	Prec@1 11.719 (11.719)
+Epoch: [0][20/157]	Time 0.046 (0.286)	Loss 2.6079 (3.9028)	Prec@1 8.594 (9.673)
+Epoch: [0][40/157]	Time 0.046 (0.169)	Loss 2.1026 (3.1298)	Prec@1 24.219 (12.710)
+Epoch: [0][60/157]	Time 0.046 (0.129)	Loss 2.0478 (2.7985)	Prec@1 28.906 (15.587)
+Epoch: [0][80/157]	Time 0.046 (0.108)	Loss 2.0261 (2.6093)	Prec@1 23.438 (17.708)
+Epoch: [0][100/157]	Time 0.045 (0.096)	Loss 1.9916 (2.4759)	Prec@1 25.781 (19.640)
+Epoch: [0][120/157]	Time 0.047 (0.088)	Loss 1.8966 (2.3837)	Prec@1 22.656 (21.042)
+Traceback (most recent call last):
+  File "/home/yancheng/code/DeepCore/main.py", line 367, in <module>
+    main()
+  File "/home/yancheng/code/DeepCore/main.py", line 301, in main
+    train(train_loader, network, criterion, optimizer, scheduler, epoch, args, rec, if_weighted=if_weighted)
+  File "/home/yancheng/code/DeepCore/utils.py", line 41, in train
+    target = contents[1].to(args.device)
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/home/yancheng/code/DeepCore/main.py", line 367, in <module>
+    main()
+  File "/home/yancheng/code/DeepCore/main.py", line 301, in main
+    train(train_loader, network, criterion, optimizer, scheduler, epoch, args, rec, if_weighted=if_weighted)
+  File "/home/yancheng/code/DeepCore/utils.py", line 41, in train
+    target = contents[1].to(args.device)
+KeyboardInterrupt

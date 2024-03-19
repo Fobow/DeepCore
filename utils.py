@@ -68,10 +68,56 @@ def train(train_loader, network, criterion, optimizer, scheduler, epoch, args, r
                 epoch, i, len(train_loader), batch_time=batch_time,
                 loss=losses, top1=top1))
         
-        wandb.log({'epoch': epoch, 'train_loss': losses.avg, 'val_loss': losses.val,"train_acc": top1.avg, "val_acc": top1.val, "lr": optimizer.param_groups[0]["lr"],
-        "batch_train_time": batch_time.avg, "batch_val_time": batch_time.val})
+        wandb.log({'epoch': epoch, 'train_loss_avg': losses.avg, 'train_loss': losses.val,"train_acc_avg": top1.avg, "train_acc": top1.val, "lr": optimizer.state_dict()['param_groups'][0]['lr'],
+        "train_batch_time_avg": batch_time.avg, "train_batch_time": batch_time.val})
 
     record_train_stats(rec, epoch, losses.avg, top1.avg, optimizer.state_dict()['param_groups'][0]['lr'])
+
+def val(val_loader, network, criterion, epoch, args, rec):
+    batch_time = AverageMeter('Time', ':6.3f')
+    losses = AverageMeter('Loss', ':.4e')
+    top1 = AverageMeter('Acc@1', ':6.2f')
+
+    # Switch to evaluate mode
+    network.eval()
+    network.no_grad = True
+
+    end = time.time()
+    for i, (input, target) in enumerate(val_loader):
+        target = target.to(args.device)
+        input = input.to(args.device)
+
+        # Compute output
+        with torch.no_grad():
+            output = network(input)
+
+            loss = criterion(output, target).mean()
+
+        # Measure accuracy and record loss
+        prec1 = accuracy(output.data, target, topk=(1,))[0]
+        losses.update(loss.data.item(), input.size(0))
+        top1.update(prec1.item(), input.size(0))
+
+        # Measure elapsed time
+        batch_time.update(time.time() - end)
+        end = time.time()
+
+        if i % args.print_freq == 0:
+            print('Test: [{0}/{1}]\t'
+                  'Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t'
+                  'Loss {loss.val:.4f} ({loss.avg:.4f})\t'
+                  'Prec@1 {top1.val:.3f} ({top1.avg:.3f})'.format(
+                i, len(val_loader), batch_time=batch_time, loss=losses,
+                top1=top1))
+
+    print(' * Prec@1 {top1.avg:.3f}'.format(top1=top1))
+    
+    wandb.log({'epoch': epoch, 'val_loss_avg': losses.avg, 'val_loss': losses.val,"val_acc_avg": top1.avg, "val_acc_val": top1.val,
+        "val_batch_time_avg": batch_time.avg, "val_batch_time": batch_time.val})
+
+    network.no_grad = False
+
+    record_test_stats(rec, epoch, losses.avg, top1.avg)
 
 
 def test(test_loader, network, criterion, epoch, args, rec):
@@ -112,6 +158,9 @@ def test(test_loader, network, criterion, epoch, args, rec):
                 top1=top1))
 
     print(' * Prec@1 {top1.avg:.3f}'.format(top1=top1))
+    
+    wandb.log({'epoch': epoch, 'test_loss_avg': losses.avg, 'test_loss': losses.val,"test_acc_avg": top1.avg, "test_acc": top1.val,
+        "test_batch_time_avg": batch_time.avg, "test_batch_time": batch_time.val})
 
     network.no_grad = False
 

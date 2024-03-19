@@ -1,0 +1,156 @@
+================== Exp 0 ==================
+dataset: CIFAR10, model: ResNet18, selection: GraNd, num_ex: 1, epochs: 100, fraction: 0.2, seed: 89419, lr: 0.1, save_path: ./result, resume: , device: cuda, checkpoint_name: CIFAR10_ResNet18_GraNd_exp0_epoch100_2024-03-18 13:31:31.785834_0.2_
+Files already downloaded and verified
+Files already downloaded and verified
+=> Training Epoch #0
+| Epoch [  0/ 10] Iter[  1/391]		Loss: 2.4058
+| Epoch [  0/ 10] Iter[ 21/391]		Loss: 2.2720
+| Epoch [  0/ 10] Iter[ 41/391]		Loss: 2.1107
+| Epoch [  0/ 10] Iter[ 61/391]		Loss: 2.1426
+| Epoch [  0/ 10] Iter[ 81/391]		Loss: 1.9815
+| Epoch [  0/ 10] Iter[101/391]		Loss: 1.8367
+| Epoch [  0/ 10] Iter[121/391]		Loss: 1.6593
+| Epoch [  0/ 10] Iter[141/391]		Loss: 1.6037
+| Epoch [  0/ 10] Iter[161/391]		Loss: 1.6684
+| Epoch [  0/ 10] Iter[181/391]		Loss: 1.7739
+| Epoch [  0/ 10] Iter[201/391]		Loss: 1.6335
+| Epoch [  0/ 10] Iter[221/391]		Loss: 1.5892
+| Epoch [  0/ 10] Iter[241/391]		Loss: 1.5031
+| Epoch [  0/ 10] Iter[261/391]		Loss: 1.4577
+| Epoch [  0/ 10] Iter[281/391]		Loss: 1.5526
+| Epoch [  0/ 10] Iter[301/391]		Loss: 1.4940
+| Epoch [  0/ 10] Iter[321/391]		Loss: 1.5172
+| Epoch [  0/ 10] Iter[341/391]		Loss: 1.4139
+| Epoch [  0/ 10] Iter[361/391]		Loss: 1.4623
+| Epoch [  0/ 10] Iter[381/391]		Loss: 1.4925
+=> Training Epoch #1
+| Epoch [  1/ 10] Iter[  1/391]		Loss: 1.4824
+| Epoch [  1/ 10] Iter[ 21/391]		Loss: 1.5578
+| Epoch [  1/ 10] Iter[ 41/391]		Loss: 1.2916
+| Epoch [  1/ 10] Iter[ 61/391]		Loss: 1.2407
+| Epoch [  1/ 10] Iter[ 81/391]		Loss: 1.3688
+| Epoch [  1/ 10] Iter[101/391]		Loss: 1.3336
+| Epoch [  1/ 10] Iter[121/391]		Loss: 1.4271
+| Epoch [  1/ 10] Iter[141/391]		Loss: 1.3224
+| Epoch [  1/ 10] Iter[161/391]		Loss: 1.4199
+| Epoch [  1/ 10] Iter[181/391]		Loss: 1.2842
+| Epoch [  1/ 10] Iter[201/391]		Loss: 1.3513
+| Epoch [  1/ 10] Iter[221/391]		Loss: 1.1864
+| Epoch [  1/ 10] Iter[241/391]		Loss: 1.1128
+| Epoch [  1/ 10] Iter[261/391]		Loss: 1.1544
+| Epoch [  1/ 10] Iter[281/391]		Loss: 1.2243
+| Epoch [  1/ 10] Iter[301/391]		Loss: 1.2325
+| Epoch [  1/ 10] Iter[321/391]		Loss: 1.2266
+| Epoch [  1/ 10] Iter[341/391]		Loss: 1.0727
+| Epoch [  1/ 10] Iter[361/391]		Loss: 1.0209
+| Epoch [  1/ 10] Iter[381/391]		Loss: 1.0305
+=> Training Epoch #2
+| Epoch [  2/ 10] Iter[  1/391]		Loss: 1.1251
+| Epoch [  2/ 10] Iter[ 21/391]		Loss: 0.9826
+| Epoch [  2/ 10] Iter[ 41/391]		Loss: 1.0967
+| Epoch [  2/ 10] Iter[ 61/391]		Loss: 0.9240
+| Epoch [  2/ 10] Iter[ 81/391]		Loss: 1.1165
+| Epoch [  2/ 10] Iter[101/391]		Loss: 0.9136
+| Epoch [  2/ 10] Iter[121/391]		Loss: 0.9038
+| Epoch [  2/ 10] Iter[141/391]		Loss: 1.0504
+| Epoch [  2/ 10] Iter[161/391]		Loss: 0.9746
+| Epoch [  2/ 10] Iter[181/391]		Loss: 1.0127
+| Epoch [  2/ 10] Iter[201/391]		Loss: 0.8878
+| Epoch [  2/ 10] Iter[221/391]		Loss: 0.7753
+| Epoch [  2/ 10] Iter[241/391]		Loss: 1.0970
+| Epoch [  2/ 10] Iter[261/391]		Loss: 0.7072
+| Epoch [  2/ 10] Iter[281/391]		Loss: 0.8919
+| Epoch [  2/ 10] Iter[301/391]		Loss: 0.8572
+| Epoch [  2/ 10] Iter[321/391]		Loss: 0.8488
+| Epoch [  2/ 10] Iter[341/391]		Loss: 0.9174
+| Epoch [  2/ 10] Iter[361/391]		Loss: 0.8124
+| Epoch [  2/ 10] Iter[381/391]		Loss: 0.8081
+=> Training Epoch #3
+| Epoch [  3/ 10] Iter[  1/391]		Loss: 0.7375
+| Epoch [  3/ 10] Iter[ 21/391]		Loss: 0.6088
+| Epoch [  3/ 10] Iter[ 41/391]		Loss: 0.8407
+| Epoch [  3/ 10] Iter[ 61/391]		Loss: 0.6368
+| Epoch [  3/ 10] Iter[ 81/391]		Loss: 0.8904
+| Epoch [  3/ 10] Iter[101/391]		Loss: 0.6954
+| Epoch [  3/ 10] Iter[121/391]		Loss: 0.6917
+| Epoch [  3/ 10] Iter[141/391]		Loss: 0.7047
+| Epoch [  3/ 10] Iter[161/391]		Loss: 0.8166
+| Epoch [  3/ 10] Iter[181/391]		Loss: 0.8355
+| Epoch [  3/ 10] Iter[201/391]		Loss: 0.7081
+| Epoch [  3/ 10] Iter[221/391]		Loss: 0.5703
+| Epoch [  3/ 10] Iter[241/391]		Loss: 0.8095
+| Epoch [  3/ 10] Iter[261/391]		Loss: 0.6535
+| Epoch [  3/ 10] Iter[281/391]		Loss: 0.6743
+| Epoch [  3/ 10] Iter[301/391]		Loss: 0.7016
+| Epoch [  3/ 10] Iter[321/391]		Loss: 0.7400
+| Epoch [  3/ 10] Iter[341/391]		Loss: 0.6124
+| Epoch [  3/ 10] Iter[361/391]		Loss: 0.7401
+| Epoch [  3/ 10] Iter[381/391]		Loss: 0.7018
+=> Training Epoch #4
+| Epoch [  4/ 10] Iter[  1/391]		Loss: 0.6021
+| Epoch [  4/ 10] Iter[ 21/391]		Loss: 0.7054
+| Epoch [  4/ 10] Iter[ 41/391]		Loss: 0.5783
+| Epoch [  4/ 10] Iter[ 61/391]		Loss: 0.5232
+| Epoch [  4/ 10] Iter[ 81/391]		Loss: 0.6541
+| Epoch [  4/ 10] Iter[101/391]		Loss: 0.6336
+| Epoch [  4/ 10] Iter[121/391]		Loss: 0.6761
+| Epoch [  4/ 10] Iter[141/391]		Loss: 0.6154
+| Epoch [  4/ 10] Iter[161/391]		Loss: 0.5175
+| Epoch [  4/ 10] Iter[181/391]		Loss: 0.6348
+| Epoch [  4/ 10] Iter[201/391]		Loss: 0.5630
+| Epoch [  4/ 10] Iter[221/391]		Loss: 0.6665
+| Epoch [  4/ 10] Iter[241/391]		Loss: 0.5847
+| Epoch [  4/ 10] Iter[261/391]		Loss: 0.6413
+| Epoch [  4/ 10] Iter[281/391]		Loss: 0.4311
+| Epoch [  4/ 10] Iter[301/391]		Loss: 0.4906
+| Epoch [  4/ 10] Iter[321/391]		Loss: 0.6863
+| Epoch [  4/ 10] Iter[341/391]		Loss: 0.7682
+| Epoch [  4/ 10] Iter[361/391]		Loss: 0.5906
+| Epoch [  4/ 10] Iter[381/391]		Loss: 0.6096
+=> Training Epoch #5
+| Epoch [  5/ 10] Iter[  1/391]		Loss: 0.5863
+| Epoch [  5/ 10] Iter[ 21/391]		Loss: 0.5937
+| Epoch [  5/ 10] Iter[ 41/391]		Loss: 0.5214
+| Epoch [  5/ 10] Iter[ 61/391]		Loss: 0.4352
+| Epoch [  5/ 10] Iter[ 81/391]		Loss: 0.4695
+| Epoch [  5/ 10] Iter[101/391]		Loss: 0.4391
+| Epoch [  5/ 10] Iter[121/391]		Loss: 0.6728
+| Epoch [  5/ 10] Iter[141/391]		Loss: 0.5457
+| Epoch [  5/ 10] Iter[161/391]		Loss: 0.4272
+| Epoch [  5/ 10] Iter[181/391]		Loss: 0.5719
+| Epoch [  5/ 10] Iter[201/391]		Loss: 0.5255
+| Epoch [  5/ 10] Iter[221/391]		Loss: 0.4931
+| Epoch [  5/ 10] Iter[241/391]		Loss: 0.5281
+| Epoch [  5/ 10] Iter[261/391]		Loss: 0.7842
+| Epoch [  5/ 10] Iter[281/391]		Loss: 0.6158
+| Epoch [  5/ 10] Iter[301/391]		Loss: 0.3797
+| Epoch [  5/ 10] Iter[321/391]		Loss: 0.4861
+| Epoch [  5/ 10] Iter[341/391]		Loss: 0.3809
+| Epoch [  5/ 10] Iter[361/391]		Loss: 0.5133
+| Epoch [  5/ 10] Iter[381/391]		Loss: 0.5441
+=> Training Epoch #6
+| Epoch [  6/ 10] Iter[  1/391]		Loss: 0.3785
+Traceback (most recent call last):
+  File "/home/yancheng/code/DeepCore/main.py", line 341, in <module>
+    main()
+  File "/home/yancheng/code/DeepCore/main.py", line 172, in main
+    subset = method.select()
+  File "/home/yancheng/code/DeepCore/deepcore/methods/grand.py", line 62, in select
+    self.run()
+  File "/home/yancheng/code/DeepCore/deepcore/methods/earlytrain.py", line 140, in run
+    self.train(epoch, list_of_train_idx)
+  File "/home/yancheng/code/DeepCore/deepcore/methods/earlytrain.py", line 78, in train
+    inputs, targets = inputs.to(self.args.device), targets.to(self.args.device)
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/home/yancheng/code/DeepCore/main.py", line 341, in <module>
+    main()
+  File "/home/yancheng/code/DeepCore/main.py", line 172, in main
+    subset = method.select()
+  File "/home/yancheng/code/DeepCore/deepcore/methods/grand.py", line 62, in select
+    self.run()
+  File "/home/yancheng/code/DeepCore/deepcore/methods/earlytrain.py", line 140, in run
+    self.train(epoch, list_of_train_idx)
+  File "/home/yancheng/code/DeepCore/deepcore/methods/earlytrain.py", line 78, in train
+    inputs, targets = inputs.to(self.args.device), targets.to(self.args.device)
+KeyboardInterrupt

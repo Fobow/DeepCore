@@ -1,0 +1,42 @@
+================== Exp 0 ==================
+dataset: CIFAR10, model: ResNet18, selection: Uniform, num_ex: 1, epochs: 1, fraction: 0.2, seed: 12403, lr: 0.1, save_path: ./result, resume: , device: cuda, checkpoint_name: CIFAR10_ResNet18_Uniform_exp0_epoch1_2024-03-19 00:58:34.223312_0.2_
+Files already downloaded and verified
+Files already downloaded and verified
+=> training samples: 40000, validation samples: 10000
+=> selecting time:  0.023797035217285156
+=> number of seletcted samples:  10000
+=> Saving checkpoint for epoch 0, with Prec@1 0.000000.
+Epoch: [0][0/79]	Time 4.808 (4.808)	Loss 2.4196 (2.4196)	Prec@1 7.812 (7.812)
+Epoch: [0][20/79]	Time 0.045 (0.273)	Loss 1085168128.0000 (52536435.8020)	Prec@1 12.500 (10.454)
+Epoch: [0][40/79]	Time 0.045 (0.162)	Loss nan (nan)	Prec@1 9.375 (10.175)
+Epoch: [0][60/79]	Time 0.046 (0.124)	Loss nan (nan)	Prec@1 4.688 (10.131)
+epoch training time:  8.525353193283081
+Test: [0/391]	Time 0.821 (0.821)	Loss nan (nan)	Prec@1 7.812 (7.812)
+Test: [20/391]	Time 0.029 (0.068)	Loss nan (nan)	Prec@1 10.156 (10.268)
+Test: [40/391]	Time 0.032 (0.050)	Loss nan (nan)	Prec@1 10.938 (9.985)
+Test: [60/391]	Time 0.033 (0.044)	Loss nan (nan)	Prec@1 7.812 (9.657)
+Test: [80/391]	Time 0.033 (0.041)	Loss nan (nan)	Prec@1 14.844 (10.069)
+Test: [100/391]	Time 0.033 (0.040)	Loss nan (nan)	Prec@1 7.812 (10.218)
+Test: [120/391]	Time 0.033 (0.038)	Loss nan (nan)	Prec@1 10.156 (10.214)
+Test: [140/391]	Time 0.033 (0.038)	Loss nan (nan)	Prec@1 7.031 (10.029)
+Test: [160/391]	Time 0.032 (0.037)	Loss nan (nan)	Prec@1 8.594 (9.904)
+Test: [180/391]	Time 0.033 (0.036)	Loss nan (nan)	Prec@1 10.156 (9.893)
+Test: [200/391]	Time 0.034 (0.036)	Loss nan (nan)	Prec@1 7.031 (9.849)
+Test: [220/391]	Time 0.032 (0.036)	Loss nan (nan)	Prec@1 9.375 (9.866)
+Test: [240/391]	Time 0.033 (0.035)	Loss nan (nan)	Prec@1 9.375 (9.881)
+Test: [260/391]	Time 0.032 (0.035)	Loss nan (nan)	Prec@1 12.500 (9.899)
+Test: [280/391]	Time 0.030 (0.035)	Loss nan (nan)	Prec@1 10.156 (9.870)
+Test: [300/391]	Time 0.029 (0.035)	Loss nan (nan)	Prec@1 10.938 (9.889)
+Test: [320/391]	Time 0.033 (0.034)	Loss nan (nan)	Prec@1 15.625 (9.923)
+Test: [340/391]	Time 0.032 (0.034)	Loss nan (nan)	Prec@1 12.500 (9.943)
+Test: [360/391]	Time 0.032 (0.034)	Loss nan (nan)	Prec@1 9.375 (10.009)
+Test: [380/391]	Time 0.032 (0.034)	Loss nan (nan)	Prec@1 11.719 (10.035)
+ * Prec@1 10.000
+Test: [0/79]	Time 0.791 (0.791)	Loss nan (nan)	Prec@1 10.156 (10.156)
+Test: [20/79]	Time 0.032 (0.068)	Loss nan (nan)	Prec@1 12.500 (10.045)
+Test: [40/79]	Time 0.033 (0.051)	Loss nan (nan)	Prec@1 11.719 (9.813)
+Test: [60/79]	Time 0.032 (0.045)	Loss nan (nan)	Prec@1 14.062 (10.015)
+ * Prec@1 10.000
+=> Saving checkpoint for epoch 0, with Prec@1 10.000000.
+training time:  25.504846334457397
+| Best accuracy:  10.0

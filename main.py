@@ -10,6 +10,7 @@ from datetime import datetime
 from time import sleep
 import wandb
 import time
+from torch.utils.data import random_split
 
 
 def main():
@@ -96,7 +97,7 @@ def main():
 
     # use wandb
     watermark = "{}_{}".format(args.selection, args.fraction, args.dataset, args.model, args.lr, args.epochs)
-    wandb.init(project="pruning-cifar10", name=watermark)
+    wandb.init(project="pruning-cifar10-with-val", name=watermark)
     wandb.config.update(args)
 
     # print("pruning method: {agrs.selection}, model: {agrs.model}, repeat: {args.num_exp}")
@@ -154,10 +155,20 @@ def main():
 
         channel, im_size, num_classes, class_names, mean, std, dst_train, dst_test = datasets.__dict__[args.dataset] \
             (args.data_path)
+    
         args.channel, args.im_size, args.num_classes, args.class_names = channel, im_size, num_classes, class_names
 
         torch.random.manual_seed(args.seed)
 
+        val_size = int(0.2*len(dst_train))
+        train_size = len(dst_train) - val_size
+        dst_train, dst_val =  random_split(dst_train, [train_size, val_size])
+        print("=> training samples: {}, validation samples: {}".format(len(dst_train), len(dst_val)))
+        dst_train = dst_train.dataset
+        dst_val = dst_val.dataset
+
+        # find subset for training
+        select_start = time.time()
         if "subset" in checkpoint.keys():
             subset = checkpoint['subset']
             selection_args = checkpoint["sel_args"]
@@ -170,7 +181,11 @@ def main():
                                   )
             method = methods.__dict__[args.selection](dst_train, args, args.fraction, args.seed, **selection_args)
             subset = method.select()
-        print("=>number of samples: ", len(subset["indices"]))
+        select_end = time.time()
+        select_time = select_end - select_start
+        print("=> selecting time: ", select_time)
+        wandb.log({"select_time": select_time})
+        print("=> number of seletcted samples: ", len(subset["indices"]))
 
         # Augmentation
         if args.dataset == "CIFAR10" or args.dataset == "CIFAR100":
@@ -197,11 +212,15 @@ def main():
         if args.dataset == "ImageNet":
             train_loader = DataLoaderX(dst_subset, batch_size=args.train_batch, shuffle=True,
                                        num_workers=args.workers, pin_memory=True)
+            val_loader = DataLoaderX(dst_val, batch_size=args.train_batch, shuffle=True,
+                                       num_workers=args.workers, pin_memory=True)
             test_loader = DataLoaderX(dst_test, batch_size=args.train_batch, shuffle=False,
                                       num_workers=args.workers, pin_memory=True)
         # load cifar
         else:
             train_loader = torch.utils.data.DataLoader(dst_subset, batch_size=args.train_batch, shuffle=True,
+                                                       num_workers=args.workers, pin_memory=True)
+            val_loader = torch.utils.data.DataLoader(dst_val, batch_size=args.train_batch, shuffle=True,
                                                        num_workers=args.workers, pin_memory=True)
             test_loader = torch.utils.data.DataLoader(dst_test, batch_size=args.train_batch, shuffle=False,
                                                       num_workers=args.workers, pin_memory=True)
@@ -275,17 +294,20 @@ def main():
                                  "sel_args": selection_args},
                                 os.path.join(args.save_path, checkpoint_name + ("" if model == args.model else model
                                              + "_") + "unknown.ckpt"), 0, 0.)
-
+            total_train_start = time.time()
             for epoch in range(start_epoch, args.epochs):
                 # train for one epoch
-                train_start_time = time.time()
+                # train_start_time = time.time()
                 train(train_loader, network, criterion, optimizer, scheduler, epoch, args, rec, if_weighted=if_weighted)
-                train_end_time = time.time()
-                train_time = train_end_time - train_start_time
-                wandb.log({"training_time": train_time})
-                print("training time: ", train_time)
+                # train_end_time = time.time()
+                # train_time = train_end_time - train_start_time
+                # wandb.log({"epoch training_time": train_time})
+                # print("epoch training time: ", train_time)
 
                 # evaluate on validation set
+                val(val_loader, network, criterion, epoch, args, rec)
+
+                # evaluate on validation set, this is actually test set
                 if args.test_interval > 0 and (epoch + 1) % args.test_interval == 0:
                     prec1 = test(test_loader, network, criterion, epoch, args, rec)
 
@@ -307,6 +329,10 @@ def main():
                                             os.path.join(args.save_path, checkpoint_name + (
                                                 "" if model == args.model else model + "_") + "unknown.ckpt"),
                                             epoch=epoch, prec=best_prec1)
+            total_train_end = time.time()
+            t_train_time = total_train_end - total_train_start
+            wandb.log({"total_training_time": t_train_time})
+            print("training time: ", t_train_time)
 
             # Prepare for the next checkpoint
             if args.save_path != "":

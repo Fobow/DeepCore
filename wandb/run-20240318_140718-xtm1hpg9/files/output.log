@@ -1,0 +1,39 @@
+================== Exp 0 ==================
+dataset: CIFAR10, model: ResNet18, selection: GraNd, num_ex: 1, epochs: 1, fraction: 0.1, seed: 36860, lr: 0.1, save_path: ./result, resume: , device: cuda, checkpoint_name: CIFAR10_ResNet18_GraNd_exp0_epoch1_2024-03-18 14:07:18.505714_0.1_
+Files already downloaded and verified
+Files already downloaded and verified
+called grand, with 1 ensemble and 1 epochs
+=> Early Training Epoch #0
+| Epoch [  0/  1] Iter[  1/391]		Loss: 2.3691
+| Epoch [  0/  1] Iter[ 21/391]		Loss: 2.2554
+| Epoch [  0/  1] Iter[ 41/391]		Loss: 2.0248
+| Epoch [  0/  1] Iter[ 61/391]		Loss: 1.8738
+| Epoch [  0/  1] Iter[ 81/391]		Loss: 1.8599
+| Epoch [  0/  1] Iter[101/391]		Loss: 1.8327
+| Epoch [  0/  1] Iter[121/391]		Loss: 1.7036
+| Epoch [  0/  1] Iter[141/391]		Loss: 1.5421
+| Epoch [  0/  1] Iter[161/391]		Loss: 1.7373
+| Epoch [  0/  1] Iter[181/391]		Loss: 1.5529
+| Epoch [  0/  1] Iter[201/391]		Loss: 1.5068
+| Epoch [  0/  1] Iter[221/391]		Loss: 1.6226
+| Epoch [  0/  1] Iter[241/391]		Loss: 1.6867
+| Epoch [  0/  1] Iter[261/391]		Loss: 1.3891
+| Epoch [  0/  1] Iter[281/391]		Loss: 1.6198
+| Epoch [  0/  1] Iter[301/391]		Loss: 1.6040
+| Epoch [  0/  1] Iter[321/391]		Loss: 1.4413
+| Epoch [  0/  1] Iter[341/391]		Loss: 1.2691
+| Epoch [  0/  1] Iter[361/391]		Loss: 1.4545
+| Epoch [  0/  1] Iter[381/391]		Loss: 1.2947
+=>number of samples:  5000
+=> Saving checkpoint for epoch 0, with Prec@1 0.000000.
+Epoch: [0][0/40]	Time 3.157 (3.157)	Loss 2.3618 (2.3618)	Prec@1 10.156 (10.156)
+Epoch: [0][20/40]	Time 0.047 (0.195)	Loss 35.2702 (18.9946)	Prec@1 10.156 (11.161)
+training time:  5.146050453186035
+Test: [0/79]	Time 0.766 (0.766)	Loss nan (nan)	Prec@1 10.156 (10.156)
+Test: [20/79]	Time 0.031 (0.067)	Loss nan (nan)	Prec@1 12.500 (10.045)
+Test: [40/79]	Time 0.036 (0.050)	Loss nan (nan)	Prec@1 11.719 (9.813)
+Test: [60/79]	Time 0.031 (0.044)	Loss nan (nan)	Prec@1 14.062 (10.015)
+ * Prec@1 10.000
+=> Saving checkpoint for epoch 0, with Prec@1 10.000000.
+training time:  8.747703075408936
+| Best accuracy:  10.0

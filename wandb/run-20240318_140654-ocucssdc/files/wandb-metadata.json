@@ -1,0 +1,239 @@
+{
+    "os": "Linux-5.15.0-58-generic-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "heartbeatAt": "2024-03-18T18:06:54.850457",
+    "startedAt": "2024-03-18T18:06:54.365303",
+    "docker": null,
+    "cuda": null,
+    "args": [
+        "--fraction",
+        "0.1",
+        "--dataset",
+        "CIFAR10",
+        "--data_path",
+        "/home/yancheng/datasets",
+        "--num_exp",
+        "1",
+        "--workers",
+        "10",
+        "--optimizer",
+        "SGD",
+        "-se",
+        "1",
+        "--selection",
+        "GraNd",
+        "--model",
+        "ResNet18",
+        "--lr",
+        "0.1",
+        "--save_path",
+        "./result",
+        "--batch",
+        "128",
+        "--epochs",
+        "1"
+    ],
+    "state": "running",
+    "program": "/home/yancheng/code/DeepCore/main.py",
+    "codePathLocal": "main.py",
+    "codePath": "main.py",
+    "git": {
+        "remote": "https://github.com/Fobow/DeepCore.git",
+        "commit": "4d061e569c206abf6f0e83fb428d7f90ee499ba0"
+    },
+    "email": "fffobow@gmail.com",
+    "root": "/home/yancheng/code/DeepCore",
+    "host": "dl",
+    "username": "yancheng",
+    "executable": "/usr/bin/python3",
+    "cpu_count": 16,
+    "cpu_count_logical": 32,
+    "cpu_freq": {
+        "current": 2.4090625000000014,
+        "min": 2200.0,
+        "max": 3900.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 2.2,
+            "min": 2200.0,
+            "max": 3900.0
+        },
+        {
+            "current": 2.2,
+            "min": 2200.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3.9,
+            "min": 2200.0,
+            "max": 3900.0
+        },
+        {
+            "current": 2.2,
+            "min": 2200.0,
+            "max": 3900.0
+        },
+        {
+            "current": 2.2,
+            "min": 2200.0,
+            "max": 3900.0
+        },
+        {
+            "current": 2.2,
+            "min": 2200.0,
+            "max": 3900.0
+        },
+        {
+            "current": 2.2,
+            "min": 2200.0,
+            "max": 3900.0
+        },
+        {
+            "current": 2.2,
+            "min": 2200.0,
+            "max": 3900.0
+        },
+        {
+            "current": 2.2,
+            "min": 2200.0,
+            "max": 3900.0
+        },
+        {
+            "current": 2.2,
+            "min": 2200.0,
+            "max": 3900.0
+        },
+        {
+            "current": 2.2,
+            "min": 2200.0,
+            "max": 3900.0
+        },
+        {
+            "current": 2.2,
+            "min": 2200.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3.9,
+            "min": 2200.0,
+            "max": 3900.0
+        },
+        {
+            "current": 2.2,
+            "min": 2200.0,
+            "max": 3900.0
+        },
+        {
+            "current": 2.2,
+            "min": 2200.0,
+            "max": 3900.0
+        },
+        {
+            "current": 2.2,
+            "min": 2200.0,
+            "max": 3900.0
+        },
+        {
+            "current": 2.2,
+            "min": 2200.0,
+            "max": 3900.0
+        },
+        {
+            "current": 2.2,
+            "min": 2200.0,
+            "max": 3900.0
+        },
+        {
+            "current": 2.2,
+            "min": 2200.0,
+            "max": 3900.0
+        },
+        {
+            "current": 2.2,
+            "min": 2200.0,
+            "max": 3900.0
+        },
+        {
+            "current": 2.2,
+            "min": 2200.0,
+            "max": 3900.0
+        },
+        {
+            "current": 2.2,
+            "min": 2200.0,
+            "max": 3900.0
+        },
+        {
+            "current": 2.2,
+            "min": 2200.0,
+            "max": 3900.0
+        },
+        {
+            "current": 2.2,
+            "min": 2200.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3.9,
+            "min": 2200.0,
+            "max": 3900.0
+        },
+        {
+            "current": 2.2,
+            "min": 2200.0,
+            "max": 3900.0
+        },
+        {
+            "current": 2.2,
+            "min": 2200.0,
+            "max": 3900.0
+        },
+        {
+            "current": 2.2,
+            "min": 2200.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3.9,
+            "min": 2200.0,
+            "max": 3900.0
+        },
+        {
+            "current": 2.09,
+            "min": 2200.0,
+            "max": 3900.0
+        },
+        {
+            "current": 3.264,
+            "min": 2200.0,
+            "max": 3900.0
+        },
+        {
+            "current": 2.2,
+            "min": 2200.0,
+            "max": 3900.0
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 915.2065544128418,
+            "used": 731.5176734924316
+        }
+    },
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "gpu_count": 2,
+    "gpu_devices": [
+        {
+            "name": "NVIDIA GeForce RTX 3090",
+            "memory_total": 25769803776
+        },
+        {
+            "name": "NVIDIA GeForce RTX 3090",
+            "memory_total": 25769803776
+        }
+    ],
+    "memory": {
+        "total": 125.62788009643555
+    }
+}
