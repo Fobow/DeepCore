@@ -71,12 +71,9 @@ class GraNd(EarlyTrain):
         else:
             top_examples = np.array([], dtype=np.int64)
             for c in range(self.num_classes):
-                # print(len(self.dst_train.targets))
-                # print(len(self.norm_mean))
-                # print(self.dst_train.targets)
-                # print(len(self.train_indx))
                 # len of targets is 50000, train_indx is 40000
-                c_indx = self.train_indx[torch.stack(self.dst_train.targets) == int(c)]
+                # c_indx = self.train_indx[torch.stack(self.dst_train.targets) == int(c)]
+                c_indx = self.train_indx[self.dst_train.targets == int(c)]
                 # print(c_indx)
                 # random split
                 # c_indx = self.train_indx[ (self.dst_train.dataset.targets[i] for i in self.dst_train.indices )== c]

@@ -115,7 +115,7 @@ def main():
 
     # use wandb
     watermark = "{}_{}".format(args.selection, args.fraction, args.dataset, args.model, args.lr, args.epochs)
-    wandb.init(project="pruning-cifar10-with-val", name=watermark)
+    wandb.init(project="pruning-cifar10-multi-ratio", name=watermark)
     wandb.config.update(args)
 
     # print("pruning method: {agrs.selection}, model: {agrs.model}, repeat: {args.num_exp}")
@@ -171,19 +171,21 @@ def main():
               ", lr: ", args.lr, ", save_path: ", args.save_path, ", resume: ", args.resume, ", device: ", args.device,
               ", checkpoint_name: " + checkpoint_name if args.save_path != "" else "", "\n", sep="")
 
-        channel, im_size, num_classes, class_names, mean, std, dst_train_full, dst_test = datasets.__dict__[args.dataset] \
+        # channel, im_size, num_classes, class_names, mean, std, dst_train_full, dst_test = datasets.__dict__[args.dataset] \
+        #     (args.data_path)
+        channel, im_size, num_classes, class_names, mean, std, dst_train, dst_test = datasets.__dict__[args.dataset] \
             (args.data_path)
     
         args.channel, args.im_size, args.num_classes, args.class_names = channel, im_size, num_classes, class_names
 
         torch.random.manual_seed(args.seed)
 
-        val_size = int(0.2*len(dst_train_full))
-        train_size = len(dst_train_full) - val_size
-        dst_train, dst_val =  random_split(dst_train_full, [train_size, val_size])
-        print("=> training samples: {}, validation samples: {}".format(len(dst_train), len(dst_val)))
-        dst_train = CustomSubset(dst_train_full, dst_train.indices)
-        dst_val = CustomSubset(dst_train_full, dst_val.indices)
+        # val_size = int(0.2*len(dst_train_full))
+        # train_size = len(dst_train_full) - val_size
+        # dst_train, dst_val =  random_split(dst_train_full, [train_size, val_size])
+        # print("=> training samples: {}, validation samples: {}".format(len(dst_train), len(dst_val)))
+        # dst_train = CustomSubset(dst_train_full, dst_train.indices)
+        # dst_val = CustomSubset(dst_train_full, dst_val.indices)
         # dst_train = dst_train.dataset
         # dst_val = dst_val.dataset
 
@@ -233,16 +235,16 @@ def main():
         if args.dataset == "ImageNet":
             train_loader = DataLoaderX(dst_subset, batch_size=args.train_batch, shuffle=True,
                                        num_workers=args.workers, pin_memory=True)
-            val_loader = DataLoaderX(dst_val, batch_size=args.train_batch, shuffle=True,
-                                       num_workers=args.workers, pin_memory=True)
+            # val_loader = DataLoaderX(dst_val, batch_size=args.train_batch, shuffle=True,
+            #                            num_workers=args.workers, pin_memory=True)
             test_loader = DataLoaderX(dst_test, batch_size=args.train_batch, shuffle=False,
                                       num_workers=args.workers, pin_memory=True)
         # load cifar
         else:
             train_loader = torch.utils.data.DataLoader(dst_subset, batch_size=args.train_batch, shuffle=True,
                                                        num_workers=args.workers, pin_memory=True)
-            val_loader = torch.utils.data.DataLoader(dst_val, batch_size=args.train_batch, shuffle=True,
-                                                       num_workers=args.workers, pin_memory=True)
+            # val_loader = torch.utils.data.DataLoader(dst_val, batch_size=args.train_batch, shuffle=True,
+            #                                            num_workers=args.workers, pin_memory=True)
             test_loader = torch.utils.data.DataLoader(dst_test, batch_size=args.train_batch, shuffle=False,
                                                       num_workers=args.workers, pin_memory=True)
 
@@ -264,11 +266,13 @@ def main():
 
             if args.device == "cpu":
                 print("Using CPU.")
+            elif torch.cuda.device_count() > 1:
+                print("Using multiple GPU.")
+                network = nets.nets_utils.MyDataParallel(network).cuda()
             elif args.gpu is not None:
+                print("Using one GPU.")
                 torch.cuda.set_device(args.gpu[0])
                 network = nets.nets_utils.MyDataParallel(network, device_ids=args.gpu)
-            elif torch.cuda.device_count() > 1:
-                network = nets.nets_utils.MyDataParallel(network).cuda()
 
             if "state_dict" in checkpoint.keys():
                 # Loading model state_dict
@@ -326,7 +330,7 @@ def main():
                 # print("epoch training time: ", train_time)
 
                 # evaluate on validation set
-                val(val_loader, network, criterion, epoch, args, rec)
+                # val(val_loader, network, criterion, epoch, args, rec)
 
                 # evaluate on validation set, this is actually test set
                 if args.test_interval > 0 and (epoch + 1) % args.test_interval == 0:
