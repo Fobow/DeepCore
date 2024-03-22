@@ -15,6 +15,7 @@ class Uniform(CoresetMethod):
         np.random.seed(self.random_seed)
         self.index = np.array([], dtype=np.int64)
         all_index = np.arange(self.n_train)
+        # c stands for class here
         for c in range(self.num_classes):
             c_index = (self.dst_train.targets == c)
             # c_index = (torch.stack(self.dst_train.targets) == c)

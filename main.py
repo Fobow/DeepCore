@@ -157,10 +157,16 @@ def main():
 
     for exp in range(start_exp, args.num_exp):
         if args.save_path != "":
-            checkpoint_name = "{dst}_{net}_{mtd}_exp{exp}_epoch{epc}_{dat}_{fr}_".format(dst=args.dataset,
+            # checkpoint_name = "{dst}_{net}_{mtd}_exp{exp}_epoch{epc}_{dat}_{fr}_".format(dst=args.dataset,
+            #                                                                              net=args.model,
+            #                                                                              mtd=args.selection,
+            #                                                                              dat=datetime.now(),
+            #                                                                              exp=start_exp,
+            #                                                                              epc=args.epochs,
+            #                                                                              fr=args.fraction)
+            checkpoint_name = "{dst}_{net}_{mtd}_exp{exp}_epoch{epc}_{fr}_".format(dst=args.dataset,
                                                                                          net=args.model,
                                                                                          mtd=args.selection,
-                                                                                         dat=datetime.now(),
                                                                                          exp=start_exp,
                                                                                          epc=args.epochs,
                                                                                          fr=args.fraction)
