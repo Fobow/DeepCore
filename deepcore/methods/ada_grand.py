@@ -67,6 +67,8 @@ class AdaGraNd(AdaCoresetMethod):
         np.random.seed(self.random_seed)
         self.train_indx = np.arange(self.n_train)
 
+        self.before_run()
+
         return self.finish_run()
 
 

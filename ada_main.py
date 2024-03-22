@@ -245,8 +245,12 @@ def main():
             # LR scheduler
             # define the length of subset for convenience
             n_sub_batch = round(len(dst_train) * args.fraction / args.train_batch)
+            # when warm start is used, the n_sub_batch should be modified
+            n_interation  = round(len(dst_train) * args.fraction / args.train_batch) * args.epochs * 0.8 + round(len(dst_train) / args.train_batch) * args.epochs * 0.2
+            
+            # total iterations = #batch in one epoch * epoch number
             if args.scheduler == "CosineAnnealingLR":
-                scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, n_sub_batch * args.epochs,
+                scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, n_interation,
                                                                        eta_min=args.min_lr)
             elif args.scheduler == "StepLR":
                 scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=n_sub_batch * args.step_size,
@@ -279,20 +283,24 @@ def main():
                 # dst_train is the full dataset
                 if ((epoch % args.select_every) == 0):
                     select_start = time.time()
-                    print("perform selection at epoch {}.".format(epoch))
-                    
-                    if "subset" in checkpoint.keys():
-                        subset = checkpoint['subset']
-                        selection_args = checkpoint["sel_args"]
-                    else:
-                        selection_args = dict(epochs=args.selection_epochs,
-                                            selection_method=args.uncertainty,
-                                            balance=args.balance,
-                                            greedy=args.submodular_greedy,
-                                            function=args.submodular
-                                            )
-                        method = methods.__dict__[args.selection](dst_train, network, args, args.fraction, args.seed, **selection_args)
+                    selection_args = dict(epochs=args.selection_epochs,
+                                                selection_method=args.uncertainty,
+                                                balance=args.balance,
+                                                greedy=args.submodular_greedy,
+                                                function=args.submodular
+                                                )
+                    if epoch == 0:
+                        print("perform full selection at epoch {}.".format(epoch))
+                        method = methods.__dict__['Full'](dst_train, args, args.fraction, args.seed, **selection_args)
                         subset = method.select()
+                    else:
+                        print("perform selection at epoch {}.".format(epoch))
+                        if "subset" in checkpoint.keys():
+                            subset = checkpoint['subset']
+                            selection_args = checkpoint["sel_args"]
+                        else:
+                            method = methods.__dict__[args.selection](dst_train, network, args, args.fraction, args.seed, **selection_args)
+                            subset = method.select()
                     select_end = time.time()
                     select_time = select_end - select_start
                     wandb.log({'epoch': epoch, 'select_time': select_time})

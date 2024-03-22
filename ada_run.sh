@@ -3,13 +3,13 @@
 #     --num_exp 1 --workers 10 --optimizer SGD\
 #      -se 10 --selection AdaGraNd --model ResNet18\
 #       --lr 0.1 --save_path ./result --batch 128\
-#       --epochs 100
+#       --epochs 100 --select_every 20 --scheduler CosineAnnealingLR
 
 
 fractions="0.2 0.4 0.5 0.6 0.8"
 # fractions="0.4 0.5 0.6 0.8"
-selections="AdaUniform"
-# selections="GraNd"
+# selections="AdaUniform"
+selections="AdaGraNd"
 
 for i in 1; do
     # Iterate over fractions
