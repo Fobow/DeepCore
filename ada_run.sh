@@ -6,7 +6,7 @@
 #       --epochs 100 --select_every 20 --scheduler CosineAnnealingLR
 
 
-fractions="0.2 0.4 0.5 0.6 0.8"
+fractions="0.05 0.1 0.2 0.4 0.5"
 # fractions="0.4 0.5 0.6 0.8"
 # selections="AdaUniform"
 selections="AdaGraNd"

@@ -116,7 +116,7 @@ def main():
 
     # use wandb
     watermark = "{}_{}_{}".format(args.selection, args.fraction, args.select_every, args.dataset, args.model, args.lr, args.epochs)
-    wandb.init(project="pruning-cifar10-adaptive", name=watermark)
+    wandb.init(project="pruning-cifar10-adaptive-exp", name=watermark)
     wandb.config.update(args)
 
     # set the batch size for training
@@ -276,9 +276,10 @@ def main():
                                 os.path.join(args.save_path, checkpoint_name + ("" if model == args.model else model
                                              + "_") + "unknown.ckpt"), 0, 0.)
             
-            total_train_start = time.time()
+            total_train_time = 0
+            total_test_time = 0
             for epoch in range(start_epoch, args.epochs):
-                
+                epoch_train_start = time.time()
                 # need to update the trainset every R epoch
                 # dst_train is the full dataset
                 if ((epoch % args.select_every) == 0):
@@ -336,13 +337,20 @@ def main():
                 # network.embedding_recorder.record_embedding = True 
 
                 train(train_loader, network, criterion, optimizer, scheduler, epoch, args, rec, if_weighted=if_weighted)
-
+                epoch_train_end = time.time()
+                epoch_train_time = epoch_train_end - epoch_train_start
+                total_train_time += epoch_train_time
                 # evaluate on validation set
                 # val(val_loader, network, criterion, epoch, args, rec)
 
                 # evaluate on validation set, this is actually test set
                 if args.test_interval > 0 and (epoch + 1) % args.test_interval == 0:
+                    epoch_test_start = time.time()
                     prec1 = test(test_loader, network, criterion, epoch, args, rec)
+                    epoch_test_end = time.time()
+                    epoch_test_time = epoch_test_end - epoch_test_start
+                    total_test_time += epoch_test_time
+                    
 
                     # remember best prec@1 and save checkpoint
                     is_best = prec1 > best_prec1
@@ -362,10 +370,10 @@ def main():
                                             os.path.join(args.save_path, checkpoint_name + (
                                                 "" if model == args.model else model + "_") + "unknown.ckpt"),
                                             epoch=epoch, prec=best_prec1)
-            total_train_end = time.time()
-            t_train_time = total_train_end - total_train_start
-            wandb.log({"total_training_time": t_train_time})
-            print("training time: ", t_train_time)
+            wandb.log({"total_training_time": total_train_time})
+            print("training time: ", total_train_time)
+            wandb.log({"total_test_time": total_test_time})
+            print("test time: ", total_test_time)
 
             # Prepare for the next checkpoint
             if args.save_path != "":
